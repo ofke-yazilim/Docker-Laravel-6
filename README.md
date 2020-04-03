@@ -22,12 +22,12 @@ Laravel çalışacağı ortamda  aşağıdaki uzantılara ihtiyaç duyar işte b
 - XML PHP Extension
 
 dockerfile indirmiş olduğumuz Laravel projenin ana dizini içerisine oluşturulur.
-Örnek dockerfile içeriğine adresinden ulaşabilirsiniz.
+Örnek dockerfile içeriğine https://github.com/ofke-yazilim/Docker-Laravel-6/blob/master/define/Dockerfile adresinden ulaşabilirsiniz.
 
 #### 4.Create Docker-Compose
 Docker-Compose : Docker projemiz içerisinde farklı containerların birlikte çalışmasını sağlayan bir yapıdır.
 Ana projemiz içerisine Docker-compose.yml dosyası oluşturulur ve gerekli tanımlamalar yapılır.
-Örnek içerik ve açıklamaları için :
+Örnek içerik ve açıklamaları için :https://github.com/ofke-yazilim/Docker-Laravel-6/blob/master/define/Docker-compose.yml
 
 
 #### 5. Projemiz için docker image oluşturuyoruz.
@@ -41,3 +41,6 @@ Container oluşturma işlemini Docker-compose.yml içerisine yapmış olduğumuz
 
 #### 6. Containerlar oluşsun ve Proje docker üzerinden yağı kalksın.
 Terminale **docker-compose up -d --build**  yazarak çalıştırırsak yml dosyasına uygun olarak containerlarımız oluşur ve arka planda çalışacak şekilde ayağım kalkar.
+
+#### 7. Docker ile sh işlemleri ve container örnek kullanımları
+https://github.com/ofke-yazilim/Docker-Laravel-6/blob/master/how_is_work
