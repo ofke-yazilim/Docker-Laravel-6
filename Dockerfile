@@ -2,7 +2,8 @@ ARG PHP_VERSION=7.2
 ARG COMPOSER_VERSION=1.8
 
 FROM composer:${COMPOSER_VERSION}
-FROM php:${PHP_VERSION}-cli
+FROM php:${PHP_VERSION}-apache
+#FROM php:${PHP_VERSION}-cli
 
 RUN apt-get update && \
     apt-get install -y autoconf pkg-config libssl-dev git libzip-dev zlib1g-dev && \
@@ -25,7 +26,15 @@ RUN apt-get -y update \
 && docker-php-ext-configure intl \
 && docker-php-ext-install intl
 
-RUN docker-php-ext-install gd
+#RUN docker-php-ext-install gd
+
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-install -j$(nproc) iconv \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
 
 WORKDIR /app
 COPY . /app
