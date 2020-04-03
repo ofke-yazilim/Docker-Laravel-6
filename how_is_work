@@ -1,0 +1,29 @@
+1 - docker build -t senin-docker-image-ismin . // Docker image oluşturacak
+2 - docker-compose up -d --build //Arka planda çalışacak şekilde ayağı kaldırıyoruz.
+3 - docker-compose exec web sh // Artisan kullanmak için bash ekrana gidiyotum.
+4 - docker-compose exec mongodb sh mongo // docker üzerinde mongo kullanmak
+
+
+
+Oluşturulan Mongo DB database tanımlama işlemleri.
+
+1 - Mongo Sh bağlan : docker-compose exec mongodb sh
+
+2 - Mongo cliente giriyoruz : mongo  // Eğer server içine gireceksek mongod yazacağız.
+
+3 - Admin Database User : use admin
+db.createUser( { user: "mongo", pwd: "123456", roles: [ "userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase" ] } )
+
+4 - show databases => Databaseler oluşmuş mu gör.
+
+
+EĞER POSTGRESQL ÜZERİNE YENİ BACKUP ATMAK İSTİYORSAN
+1 - Postgre container sil. (Web container da silinse iyi olur)
+2 - Container'ı yeniden oluştur :  docker-compose up -d --build
+2 - Backup dosyasını laravel projesi içerisine al örneğin : _pqsql_backup/pqsql.backup
+3 - Backupı playstore databasine restore et : docker exec -i postgres_container pg_restore -U postgres -v -d playstore < _pqsql_backup/pqsql.backup
+
+Pqsql database listesi : docker exec postgres_container psql -U postgres -l
+
+pgadmin4 drop all schemas : DROP SCHEMA IF EXISTS backend,cdr,contents,customers,store cascade;
+

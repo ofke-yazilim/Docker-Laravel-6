@@ -1,0 +1,44 @@
+version: '3'
+services:
+  web:
+    image: senin-docker-image-ismin
+    ports:
+        - 8000:8000
+    volumes:
+        - ./:/app
+    depends_on:
+      - db
+      - mongodb
+
+  db:
+    container_name: postgres_container
+    image: postgres:12.0-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: playstore
+      PGDATA: /data/postgres
+    volumes:
+      - "./.docker/dbdata:/var/lib/postgresql/data"
+    ports:
+      - "5433:5433"
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "omer@kesmez.com"
+      PGADMIN_DEFAULT_PASSWORD: "123456"
+    restart: unless-stopped
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
+
+  mongodb:
+    container_name: mongodb_container
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+volumes:
+  pgdata:
