@@ -16,7 +16,7 @@ RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install bcmath pdo pdo_pgsql pgsql => Projemizde Postgresql, Pdo kullanacağız.
 
-RUN docker-php-ext-install mbstring =>
+RUN docker-php-ext-install mbstring => Php üzerinde tüm dillerin kullanılmasını sağlar.
 
 RUN apt-get update -y && apt-get install -y sendmail libpng-dev
 
@@ -25,7 +25,13 @@ RUN apt-get -y update \
 && docker-php-ext-configure intl \
 && docker-php-ext-install intl   => Bu kütüphane projemizde NumberFormatter classın çalışması için gereklidir.
 
-RUN docker-php-ext-install gd =>
+RUN docker-php-ext-install gd => Image işlmelerinde kullanılmak için gereklidir.
+
+RUN apt-get update -y \
+  && apt-get install -y \
+     libxml2-dev \
+  && apt-get clean -y \
+  && docker-php-ext-install soap => Soap işlemleri için gerekli.
 
 WORKDIR /app  => Docker projemniz için app adı altında bir çalışma ortamı oluşturuyoruz.
 COPY . /app   => Laravel projemizi oluşturduğumuz app ortamına kopyalıyoruz.
